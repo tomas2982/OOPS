@@ -36,7 +36,7 @@ class bigCar(Car):
 
 class rocketCar(Car):
 
-
+#look at doc for what to fill for parts
 class Engine:
     horsepower = None
     engineBlowRate = None

@@ -9,12 +9,21 @@ class Car:
         self.__body = None
         self.__transmission = None
 
+    topSpeed = None
+    force = None
+    totalMass = None
 
-    carMass = None
-    enginePower = None
-    surfaceArea = None
-    maxSpeed = None
-    acceleration = None
+    def carMass(self):
+
+    def setWheels(self):
+
+    def setEngine(self):
+
+    def setBody(self):
+
+    def setTransmission(self):
+
+    def getCurrentSpeed(self):
 
 
 class fastCar(Car):
@@ -30,12 +39,15 @@ class rocketCar(Car):
 
 class Engine:
     horsepower = None
+    engineBlowRate = None
 
 class Wheels:
     size = None
+    popRate = None
 
 class Body:
     airDrag = None
+    mass = None
 
 class Transmission:
     gearbox = None

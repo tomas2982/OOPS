@@ -104,7 +104,7 @@ class Car:
 class sportCar(Car):
     def __init__(self, wheel, eng, bod, spoil):
         super().__init__(wheel, eng, bod)
-        self.__spoiler = spoil
+        self.__spoiler = spoil{}
 
 
 

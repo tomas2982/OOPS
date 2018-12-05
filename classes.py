@@ -1,4 +1,4 @@
-import pygame, random, sys, os, time
+import pygame, random, math, sys, os, time
 from pygame.locals import *
 pygame.init()
 mainClock = pygame.time.Clock()
@@ -21,10 +21,13 @@ class Car:
             self.__wheels = wheels2
         if choice==3:
             self.__wheels = wheels3
+        N = random.randint(0, 100)#https://docs.python.org/2/library/random.html
+        if self.__wheels.engineBlowRate <= N: #Wheels blow out
+            self.__wheels.Torque=0
 
         print ("Wheel choice #" , choice, " has been chosen")
 
-    def setEngine(self): #hPwr of engine, boom(chance engine blows up), engMass, rpm
+    def setEngine(self): #hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
         engine1 = Engine(150, 1, .3, 4000, 300)
         engine2 = Engine(200, 2, .3, 4500, 325)
         engine3 = Engine(250, 5, .5, 5000, 365)
@@ -35,6 +38,9 @@ class Car:
             self.__engine = engine2
         if choice==3:
             self.__engine = engine3
+        N = random.randint(0, 100)
+        if self.__engine.engineBlowRate <= N:#engine has blown out
+            self.__engine.topSpeed=0
 
         print("Engine choice #", choice, " has been chosen")
 
@@ -49,7 +55,6 @@ class Car:
             self.__body = body2
         if choice == 3:
             self.__body = body3
-
         print("Body choice #", choice, " has been chosen")
 
 
@@ -62,7 +67,7 @@ class Car:
         return F
 
     def getAccel(self):
-    #https://www.carbibles.com/transmission-guide/ (to get the average gear ratio)
+    #https://www.carbibles.com/transmission-guide/ (to get the average gear ratio and derive torque on wheels)
     #https://www.quora.com/How-do-I-calculate-the-acceleration-of-a-car-when-I-have-rpm-torque-mass-horse-power-and-speed-at-different-gear-ratios
     #(to get the torque and calculate for the acceleration)
         F = self.__wheels.torque/(self.__wheels.size/2)
@@ -76,16 +81,24 @@ class Car:
         m = self.__body.bodyMass + self.__engine.engineMass
         a = F / m
         v0 = a*mainClock
-        vf = a* + v0
+        vf = a*mainClock + v0
         if vf>=self.__engine.topSpeed:
             vf=self.__engine.topSpeed
         return vf
 
+    def getFinishTime(self):
+        F = self.__wheels.torque / (self.__wheels.size / 2)
+        m = self.__body.bodyMass + self.__engine.engineMass
+        a = F / m
+        d = 402.336
+        t = math.sqrt((2*d)/a)
+        return t
 
-    acceleration = getAccel()
-    currentSpeed = getCurrentSpeed()
-    force = None
-    totalMass = carMass()
+
+    #acceleration = getAccel()
+    #currentSpeed = getCurrentSpeed()
+    #force = None
+    #totalMass = carMass()
 
 
 class sportCar(Car):
@@ -100,6 +113,7 @@ class sportCar(Car):
 
 
 class hyperCar(sportCar):
+
 
 
 

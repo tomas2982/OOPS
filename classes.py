@@ -9,10 +9,10 @@ class Car:
         self.__engine = eng
         self.__body = bod
 
-    def setWheels(self): #diameter of wheels, pop(chance of wheels popping), torque of axles, gear ratio
-        wheels1 = Wheels(18, .02, 70)
-        wheels2 = Wheels(19, .03, 85)
-        wheels3 = Wheels(20, .05, 90)
+    def setWheels(self): #diameter of wheels, pop(chance of wheels popping), torque of axles
+        wheels1 = Wheels(18, 2, 70)
+        wheels2 = Wheels(19, 3, 85)
+        wheels3 = Wheels(20, 5, 90)
         choice = input("Choose Wheels")
 
         if choice==1:
@@ -75,14 +75,15 @@ class Car:
         F = self.__wheels.torque / (self.__wheels.size / 2)
         m = self.__body.bodyMass + self.__engine.engineMass
         a = F / m
-        speed = a*mainClock
-        if speed>=self.__engine.topSpeed
-            speed=self.__engine.topSpeed
-        return speed
+        v0 = a*mainClock
+        vf = a* + v0
+        if vf>=self.__engine.topSpeed:
+            vf=self.__engine.topSpeed
+        return vf
 
 
     acceleration = getAccel()
-    topSpeed = None
+    currentSpeed = getCurrentSpeed()
     force = None
     totalMass = carMass()
 

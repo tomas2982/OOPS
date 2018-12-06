@@ -388,3 +388,6 @@ print("max accel: ", fatBoy.getAccel(), " m/s^2 Finish time: ", fatBoy.getFinish
 print("hyperCar")
 PCPBABY.printSpecs()
 print("max accel: ", PCPBABY.getAccel(), " m/s^2 Finish time: ", PCPBABY.getFinishTime(), "seconds")
+winners=[raceCar1.getFinishTime(),raceCar2.getFinishTime(),zoomBoy.getFinishTime(),fatBoy.getFinishTime(),PCPBABY.getFinishTime()]
+print(min(winners), " is the fastest time ")
+print(max(winners), " is the slowest time ")

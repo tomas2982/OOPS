@@ -2,6 +2,8 @@ import pygame, random, math, sys, os, time
 from pygame.locals import *
 pygame.init()
 mainClock = pygame.time.Clock()
+
+
 class Car:
 
     def __init__(self, wheel, eng, bod):
@@ -9,7 +11,7 @@ class Car:
         self.__engine = eng
         self.__body = bod
 
-    def setWheels(self): #diameter of wheels, pop(chance of wheels popping), torque of axles
+    def setWheels(self):  # diameter of wheels, pop(chance of wheels popping), torque of axles
         wheels1 = Wheels(18, 2, 70)
         wheels2 = Wheels(19, 3, 85)
         wheels3 = Wheels(20, 5, 90)
@@ -21,13 +23,13 @@ class Car:
             self.__wheels = wheels2
         if choice==3:
             self.__wheels = wheels3
-        N = random.randint(0, 100)#https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N: #Wheels blow out
+        N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
+        if self.__wheels.popRate <= N:  # Wheels blow out
             self.__wheels.Torque=0
 
         print ("Wheel choice #" , choice, " has been chosen")
 
-    def setEngine(self): #hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
+    def setEngine(self):  # hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
         engine1 = Engine(150, 1, .3, 4000, 300)
         engine2 = Engine(200, 2, .3, 4500, 325)
         engine3 = Engine(250, 5, .5, 5000, 365)
@@ -39,13 +41,13 @@ class Car:
         if choice==3:
             self.__engine = engine3
         N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:#engine has blown out
+        if self.__engine.engineBlowRate <= N:  # engine has blown out
             self.__engine.topSpeed=0
 
         print("Engine choice #", choice, " has been chosen")
 
-    def setBody(self): #drag (air resistance), mass
-        body1 = Body(.25, 1.5) #drag, mass
+    def setBody(self):  # drag (air resistance), mass
+        body1 = Body(.25, 1.5)  # drag, mass
         body2 = Body(.2, 1.3)
         body3 = Body(.19, 1.3)
         choice = input("Choose Engine")
@@ -57,8 +59,7 @@ class Car:
             self.__body = body3
         print("Body choice #", choice, " has been chosen")
 
-
-    def carMass(self): #addition of body mass and engine mass
+    def carMass(self):  # addition of body mass and engine mass
         x = self.__body.bodyMass + self.__engine.engineMass
         return x
 
@@ -67,23 +68,23 @@ class Car:
         return F
 
     def getAccel(self):
-    #https://www.carbibles.com/transmission-guide/ (to get the average gear ratio and derive torque on wheels)
-    #https://www.quora.com/How-do-I-calculate-the-acceleration-of-a-car-when-I-have-rpm-torque-mass-horse-power-and-speed-at-different-gear-ratios
-    #(to get the torque and calculate for the acceleration)
-        f = self.carForce               #self.__wheels.torque/(self.__wheels.size/2)
-        m= self.carMass()                #self.__body.bodyMass + self.__engine.engineMass
+        # https://www.carbibles.com/transmission-guide/ (to get the average gear ratio and derive torque on wheels)
+        # https://www.quora.com/How-do-I-calculate-the-acceleration-of-a-car-when-I-have-rpm-torque-mass-horse-power-and-speed-at-different-gear-ratios
+        # (to get the torque and calculate for the acceleration)
+        f = self.carForce               # self.__wheels.torque/(self.__wheels.size/2)
+        m= self.carMass()                # self.__body.bodyMass + self.__engine.engineMass
         a = f / m
         return a
 
 
     def getCurrentSpeed(self):
-        F = self.carForce()             #self.__wheels.torque / (self.__wheels.size / 2)
+        F = self.carForce()             # self.__wheels.torque / (self.__wheels.size / 2)
         m = self.__body.bodyMass + self.__engine.engineMass
         a = F / m
         v0 = a*mainClock
         vf = a*mainClock + v0
-        if vf>=self.__engine.topSpeed:
-            vf=self.__engine.topSpeed
+        if vf >= self.__engine.topSpeed:
+            vf = self.__engine.topSpeed
         return vf
 
     def getFinishTime(self):
@@ -93,8 +94,6 @@ class Car:
         d = 402.336
         t = math.sqrt((2*d)/a)
         return t
-
-
     acceleration = getAccel()
     currentSpeed = getCurrentSpeed()
     #force = None
@@ -255,7 +254,7 @@ class bigCar(Car):
     def __init__(self, wheel, eng, bod):
         super().__init__(wheel, eng, bod)
 
-    def setWheels(self): #diameter of wheels, pop(chance of wheels popping), torque of axles
+    def setWheels(self):  # diameter of wheels, pop(chance of wheels popping), torque of axles
         wheels1 = Wheels(18, 2, 70)
         wheels2 = Wheels(19, 3, 85)
         wheels3 = Wheels(20, 5, 90)
@@ -271,13 +270,13 @@ class bigCar(Car):
         if choice==4:
             self.__wheels = wheels4
 
-        N = random.randint(0, 100)#https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N: #Wheels blow out
+        N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
+        if self.__wheels.popRate <= N:  # Wheels blow out
             self.__wheels.Torque=0
 
         print ("Wheel choice #" , choice, " has been chosen")
 
-    def setEngine(self): #hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
+    def setEngine(self):  # hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
         engine1 = Engine(200, 1, .4, 4000, 300)
         engine2 = Engine(250, 2, .4, 4500, 325)
         engine3 = Engine(300, 5, .5, 5000, 365)
@@ -293,13 +292,13 @@ class bigCar(Car):
             self.__engine = engine4
 
         N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:#engine has blown out
+        if self.__engine.engineBlowRate <= N:  # engine has blown out
             self.__engine.topSpeed=0
 
         print("Engine choice #", choice, " has been chosen")
 
-    def setBody(self): #drag (air resistance), mass
-        body1 = Body(.25, 1.5) #drag, mass
+    def setBody(self):  # drag (air resistance), mass
+        body1 = Body(.25, 1.5) # drag, mass
         body2 = Body(.21, 1.3)
         body3 = Body(.19, 1.5)
         body4 = Body(.2, 1.4)
@@ -315,8 +314,9 @@ class bigCar(Car):
         print("Body choice #", choice, " has been chosen")
 
 
-
 class rocketCar(bigCar):
+    def __init__(self, wheel, eng, bod):
+        super().__init__(wheel, eng, bod)
 
 
 class Engine:
@@ -327,20 +327,24 @@ class Engine:
         self.rotationsPerMinute = rpm
         self.topSpeed = topSpd
 
+
 class Wheels:
     def __init__(self, diameter, pop, tor):
         self.size = diameter
         self.popRate = pop
         self.torque=tor
 
+
 class Body:
     def __init__(self, drag, mass):
         self.airDrag = drag
         self.bodyMass = mass
 
+
 class Spoiler:
     def __init__(self, dForce):
         self.downForce = dForce
+
 
 class Boost:
     def __init__(self, nos):

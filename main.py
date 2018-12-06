@@ -131,11 +131,21 @@ class Car:
         d = 402.336  # distance (1/4 mile in meters)
         t = math.sqrt((2*d)/a)
         return t
-    #acceleration = getAccel()
-    #currentSpeed = getCurrentSpeed()
-    #force = None
-    #totalMass = carMass()
 
+    def printSpecs(self):
+        print("Wheel: ")
+        print("     size: ",self.wheels.size, " inches")
+        print("     pop rate: ", self.wheels.popRate, " %")
+        print("     torque: ", self.wheels.torque, " N/m")
+        print("Engine: ")
+        print("     Horsepower: ", self.engine.horsepower, " hP")
+        print("     Blow rate: ", self.engine.engineBlowRate, " %")
+        print("     Mass: ", self.engine.engineMass, " tons")
+        print("     Engine RPM", self.engine.rotationsPerMinute)
+        print("     Top speed: ", self.engine.topSpeed, " m/s")
+        print("Body: ")
+        print("     Mass: ", self.body.bodyMass, " tons")
+        print("     Drag Coeff.: ", self.body.airDrag)
 
 class sportCar(Car):
     def __init__(self, wheel, eng, bod, spoil):
@@ -363,13 +373,18 @@ zoomBoy = sportCar(Wheels(19, 2, 80),Engine(250, 2, .2, 4500, 370), Body(.19, 1.
 fatBoy = bigCar(Wheels(21, 6, 100), Engine(300, 5, .5, 5000, 365),Body(.2, 1.4))
 PCPBABY = hyperCar(Wheels(19, 2, 80),Engine(300, 3, .3, 5000, 385),Body(.18, 1.4),Spoiler(4,2),Boost(30,10))
 
-
+print("raceCar1")
+raceCar1.printSpecs()
 print("max accel: ", raceCar1.getAccel(), " m/s^2 Finish time: ",raceCar1.getFinishTime(), "seconds")
-
+print("raceCar2")
+raceCar2.printSpecs()
 print("max accel: ", raceCar2.getAccel(), " m/s^2 Finish time: ", raceCar2.getFinishTime(), "seconds")
-
+print("sportCar1")
+zoomBoy.printSpecs()
 print("max accel: ", zoomBoy.getAccel(), " m/s^2 Finish time: ", zoomBoy.getFinishTime(), "seconds")
-
+print("bigCar")
+fatBoy.printSpecs()
 print("max accel: ", fatBoy.getAccel(), " m/s^2 Finish time: ", fatBoy.getFinishTime(), "seconds")
-
+print("hyperCar")
+PCPBABY.printSpecs()
 print("max accel: ", PCPBABY.getAccel(), " m/s^2 Finish time: ", PCPBABY.getFinishTime(), "seconds")

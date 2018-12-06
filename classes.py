@@ -16,7 +16,7 @@ class Wheels:
     def __init__(self, diameter, pop, tor):
         self.size = diameter
         self.popRate = pop
-        self.torque=tor
+        self.torque = tor
 
 
 class Body:
@@ -59,7 +59,7 @@ class Car:
         if self.__wheels.popRate <= N:  # Wheels blow out
             self.__wheels.Torque=0
 
-        print ("Wheel choice #" , choice, " has been chosen")
+        print("Wheel choice #" , choice, " has been chosen")
 
     def setEngine(self):  # hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
         engine1 = Engine(150, 1, .3, 4000, 300)
@@ -330,11 +330,11 @@ class bigCar(Car):
         print("Engine choice #", choice, " has been chosen")
 
     def setBody(self):  # drag (air resistance), mass
-        body1 = Body(.25, 1.5) # drag, mass
+        body1 = Body(.25, 1.5)# drag, mass
         body2 = Body(.21, 1.3)
         body3 = Body(.19, 1.5)
         body4 = Body(.2, 1.4)
-        choice = input("Choose Engine")
+        choice = input("Choose Body")
         if choice == 1:
             self.__body = body1
         if choice == 2:
@@ -352,7 +352,7 @@ class rocketCar(bigCar):
 
 
 
-raceCar1 = Car(None,None,None)
-raceCar1.setBody()
-raceCar1.setEngine()
+raceCar1 = Car(0,1,2)
 raceCar1.setWheels()
+raceCar1.setEngine()
+raceCar1.setBody()

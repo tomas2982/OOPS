@@ -57,7 +57,7 @@ class Car:
             self.__wheels = wheels3
         N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
         if self.__wheels.popRate <= N:  # Wheels blow out
-            self.__wheels.Torque=0
+            self.__wheels.torque=0
 
         print("Wheel choice #" , choice, " has been chosen")
 

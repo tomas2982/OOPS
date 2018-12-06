@@ -4,7 +4,7 @@ pygame.init()
 mainClock = pygame.time.Clock()
 
 class Engine:
-    def __init__(self, hPwr, boom, engMass, rpm, topSpd):
+    def __init__(self, hPwr: int, boom: int, engMass: float, rpm: int, topSpd: float) -> object:
         self.horsepower = hPwr
         self.engineBlowRate = boom
         self.engineMass = engMass
@@ -12,36 +12,40 @@ class Engine:
         self.topSpeed = topSpd
 
 
+
 class Wheels:
-    def __init__(self, diameter, pop, tor):
+    def __init__(self, diameter: int, pop: int, tor: float) -> object:
         self.size = diameter
         self.popRate = pop
         self.torque=tor
 
 
 class Body:
-    def __init__(self, drag, mass):
+    def __init__(self, drag: float, mass: float) -> object:
         self.airDrag = drag
         self.bodyMass = mass
 
 
 class Spoiler:
-    def __init__(self, dForce):
-        self.downForce = dForce
+    def __init__(self, dForce: int, fRate: int) ->object:
+        self.downForce = dForce     # add to force
+        self.flipRate = fRate
+
 
 
 class Boost:
-    def __init__(self, nos):
-        self.nitrous = nos
-
+    def __init__(self, nos: int, bigBoom: int) -> object:
+        self.nitrous = nos      # to add to top speed
+        self.exlpodeRate = bigBoom
 
 
 class Car:
 
     def __init__(self, wheel, eng, bod):
-        self.__wheels = wheel
-        self.__engine = eng
-        self.__body = bod
+        self.wheels = wheel
+        self.engine = eng
+        self.body = bod
+
 
     def setWheels(self):  # diameter of wheels, pop(chance of wheels popping), torque of axles
         wheels1 = Wheels(18, 2, 70)
@@ -50,16 +54,17 @@ class Car:
         choice = input("Choose Wheels")
 
         if choice==1:
-            self.__wheels = wheels1
+            self.wheels = wheels1
         if choice==2:
-            self.__wheels = wheels2
+            self.wheels = wheels2
         if choice==3:
-            self.__wheels = wheels3
-        N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N:  # Wheels blow out
-            self.__wheels.Torque=0
+            self.wheels = wheels3
+        N = random.randint(0, 100)
+        #print(self.__wheels.size)                              # https://docs.python.org/2/library/random.html
+        if self.wheels.popRate <= N:  # Wheels blow out
+           self.wheels.Torque=0
 
-        print ("Wheel choice #" , choice, " has been chosen")
+        print ("Size ", self.wheels.size, " wheels with a torque of ", self.wheels.torque, " and poprate of ", self.wheels.popRate," have been added to car")
 
     def setEngine(self):  # hPwr of engine, boom(chance engine blows up), engMass, rpm, topSpeed of car
         engine1 = Engine(150, 1, .3, 4000, 300)
@@ -67,16 +72,16 @@ class Car:
         engine3 = Engine(250, 5, .5, 5000, 365)
         choice = input("Choose Engine")
         if choice==1:
-            self.__engine = engine1
+            self.engine = engine1
         if choice==2:
-            self.__engine = engine2
+            self.engine = engine2
         if choice==3:
-            self.__engine = engine3
-        N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:  # engine has blown out
-            self.__engine.topSpeed=0
+            self.engine = engine3
+        #N = random.randint(0, 99)
+      #  if self.__engine.engineBlowRate <= N:  # engine has blown out
+     #       self.__engine.topSpeed=0
 
-        print("Engine choice #", choice, " has been chosen")
+        print(self.engine.horsepower, " horsepower engine has been added to car")
 
     def setBody(self):  # drag (air resistance), mass
         body1 = Body(.25, 1.5)  # drag, mass
@@ -84,19 +89,19 @@ class Car:
         body3 = Body(.19, 1.3)
         choice = input("Choose Body")
         if choice == 1:
-            self.__body = body1
+            self.body = body1
         if choice == 2:
-            self.__body = body2
+            self.body = body2
         if choice == 3:
-            self.__body = body3
-        print("Body choice #", choice, " has been chosen")
+            self.body = body3
+        print(self.body.bodyMass, " ton body has been installed on car")
 
     def carMass(self):  # addition of body mass and engine mass
-        x = self.__body.bodyMass + self.__engine.engineMass
+        x = self.body.bodyMass + self.engine.engineMass
         return x
 
     def carForce(self):
-        F = self.__wheels.torque/(self.__wheels.size/2)
+        F = self._wheels.torque/(self._wheels.size/2)
         return F
 
     def getAccel(self):
@@ -111,17 +116,17 @@ class Car:
 
     def getCurrentSpeed(self):
         F = self.carForce()             # self.__wheels.torque / (self.__wheels.size / 2)
-        m = self.__body.bodyMass + self.__engine.engineMass
+        m = self.body.bodyMass + self.engine.engineMass
         a = F / m
         v0 = a*mainClock
         vf = a*mainClock + v0
-        if vf >= self.__engine.topSpeed:
-            vf = self.__engine.topSpeed
+        if vf >= self.engine.topSpeed:
+            vf = self.engine.topSpeed
         return vf
 
     def getFinishTime(self):
-        F = self.__wheels.torque / (self.__wheels.size / 2)
-        m = self.__body.bodyMass + self.__engine.engineMass
+        F = self._wheels.torque / (self._wheels.size / 2)
+        m = self.body.bodyMass + self.engine.engineMass
         a = F / m
         d = 402.336  # distance (1/4 mile in meters)
         t = math.sqrt((2*d)/a)
@@ -135,7 +140,7 @@ class Car:
 class sportCar(Car):
     def __init__(self, wheel, eng, bod, spoil):
         super().__init__(wheel, eng, bod)
-        self.__spoiler = spoil
+        self.spoiler = spoil
 
     def setWheels(self): #diameter of wheels, pop(chance of wheels popping), torque of axles
         wheels1 = Wheels(18, 2, 70)
@@ -146,18 +151,18 @@ class sportCar(Car):
         choice = input("Choose Wheels")
 
         if choice==1:
-            self.__wheels = wheels1
+            self.wheels = wheels1
         if choice==2:
-            self.__wheels = wheels2
+            self.wheels = wheels2
         if choice==3:
-            self.__wheels = wheels3
+            self.wheels = wheels3
         if choice == 4:
-            self.__wheels = wheels4
+            self.wheels = wheels4
         if choice==5:
-            self.__wheels = wheels5
-        N = random.randint(0, 100) #https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N: #Wheels blow out
-            self.__wheels.Torque=0
+            self.wheels = wheels5
+       # N = random.randint(0, 100) #https://docs.python.org/2/library/random.html
+       # if self.__wheels.popRate <= N: #Wheels blow out
+      #      self.__wheels.Torque=0
 
         print ("Wheel choice #" , choice, " has been chosen")
 
@@ -169,19 +174,19 @@ class sportCar(Car):
         engine5 = Engine(300, 3, .3, 5000, 385)
         choice = input("Choose Engine")
         if choice==1:
-            self.__engine = engine1
+            self.engine = engine1
         if choice==2:
-            self.__engine = engine2
+            self.engine = engine2
         if choice==3:
-            self.__engine = engine3
+            self.engine = engine3
         if choice==4:
-            self.__engine = engine4
+            self.engine = engine4
         if choice==5:
-            self.__engine = engine5
+            self.engine = engine5
 
-        N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:#engine has blown out
-            self.__engine.topSpeed=0
+     #   N = random.randint(0, 100)
+     #   if self.__engine.engineBlowRate <= N:#engine has blown out
+     #       self.__engine.topSpeed=0
 
         print("Engine choice #", choice, " has been chosen")
 
@@ -194,15 +199,15 @@ class sportCar(Car):
 
         choice = input("Choose Engine")
         if choice == 1:
-            self.__body = body1
+            self.body = body1
         if choice == 2:
-            self.__body = body2
+            self.body = body2
         if choice == 3:
-            self.__body = body3
+            self.body = body3
         if choice == 4:
-            self.__body = body4
+            self.body = body4
         if choice == 5:
-            self.__body = body5
+            self.body = body5
         print("Body choice #", choice, " has been chosen")
 
 
@@ -220,18 +225,18 @@ class hyperCar(sportCar):
         choice = input("Choose Wheels")
 
         if choice == 1:
-            self.__wheels = wheels1
+            self.wheels = wheels1
         if choice == 2:
-            self.__wheels = wheels2
+            self.wheels = wheels2
         if choice == 3:
-            self.__wheels = wheels3
+            self.wheels = wheels3
         if choice == 4:
-            self.__wheels = wheels4
+            self.wheels = wheels4
         if choice == 5:
-            self.__wheels = wheels5
-        N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N:  # Wheels blow out
-            self.__wheels.Torque = 0
+            self.wheels = wheels5
+    #    N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
+     #   if self.__wheels.popRate <= N:  # Wheels blow out
+     #       self.__wheels.Torque = 0
 
         print("Wheel choice #", choice, " has been chosen")
 
@@ -243,19 +248,19 @@ class hyperCar(sportCar):
         engine5 = Engine(300, 3, .3, 5000, 385)
         choice = input("Choose Engine")
         if choice == 1:
-            self.__engine = engine1
+            self.engine = engine1
         if choice == 2:
-            self.__engine = engine2
+            self.engine = engine2
         if choice == 3:
-            self.__engine = engine3
+            self.engine = engine3
         if choice == 4:
-            self.__engine = engine4
+            self.engine = engine4
         if choice == 5:
-            self.__engine = engine5
+            self.engine = engine5
 
-        N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:  # engine has blown out
-            self.__engine.topSpeed = 0
+     #   N = random.randint(0, 100)
+    #    if self.__engine.engineBlowRate <= N:  # engine has blown out
+     #       self.__engine.topSpeed = 0
 
         print("Engine choice #", choice, " has been chosen")
 
@@ -268,15 +273,15 @@ class hyperCar(sportCar):
 
         choice = input("Choose Engine")
         if choice == 1:
-            self.__body = body1
+            self.body = body1
         if choice == 2:
-            self.__body = body2
+            self.body = body2
         if choice == 3:
-            self.__body = body3
+            self.body = body3
         if choice == 4:
-            self.__body = body4
+            self.body = body4
         if choice == 5:
-            self.__body = body5
+            self.body = body5
         print("Body choice #", choice, " has been chosen")
 
 
@@ -294,17 +299,17 @@ class bigCar(Car):
         choice = input("Choose Wheels")
 
         if choice==1:
-            self.__wheels = wheels1
+            self._wheels = wheels1
         if choice==2:
-            self.__wheels = wheels2
+            self._wheels = wheels2
         if choice==3:
-            self.__wheels = wheels3
+            self._wheels = wheels3
         if choice==4:
-            self.__wheels = wheels4
+            self._wheels = wheels4
 
-        N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
-        if self.__wheels.popRate <= N:  # Wheels blow out
-            self.__wheels.Torque=0
+     #   N = random.randint(0, 100)  # https://docs.python.org/2/library/random.html
+    #    if self.__wheels.popRate <= N:  # Wheels blow out
+    #        self.__wheels.Torque=0
 
         print ("Wheel choice #" , choice, " has been chosen")
 
@@ -315,17 +320,17 @@ class bigCar(Car):
         engine4 = Engine(350, 6, .6, 5500, 380)
         choice = input("Choose Engine")
         if choice==1:
-            self.__engine = engine1
+            self.engine = engine1
         if choice==2:
-            self.__engine = engine2
+            self.engine = engine2
         if choice==3:
-            self.__engine = engine3
+            self.engine = engine3
         if choice==4:
-            self.__engine = engine4
+            self.engine = engine4
 
-        N = random.randint(0, 100)
-        if self.__engine.engineBlowRate <= N:  # engine has blown out
-            self.__engine.topSpeed=0
+      #  N = random.randint(0, 100)
+   #     if self.__engine.engineBlowRate <= N:  # engine has blown out
+    #        self.__engine.topSpeed=0
 
         print("Engine choice #", choice, " has been chosen")
 
@@ -336,13 +341,13 @@ class bigCar(Car):
         body4 = Body(.2, 1.4)
         choice = input("Choose Engine")
         if choice == 1:
-            self.__body = body1
+            self.body = body1
         if choice == 2:
-            self.__body = body2
+            self.body = body2
         if choice == 3:
-            self.__body = body3
+            self.body = body3
         if choice == 4:
-            self.__body = body4
+            self.body = body4
         print("Body choice #", choice, " has been chosen")
 
 
@@ -351,8 +356,15 @@ class rocketCar(bigCar):
         super().__init__(wheel, eng, bod)
 
 
+#raceCar2 = Car(Wheels(18, 2, 70),Engine(200, 2, .3, 4500, 325),Body(.19, 1.3))
+raceCar1 = Car(Wheels(18, 2, 70),Engine(200, 2, .3, 4500, 325),Body(.19, 1.3))
+#raceCar1._wheels= Wheels(18, 2, 70)
+#raceCar1._engine= Engine(200, 2, .3, 4500, 325)
+#raceCar1._body = Body(.19, 1.3)
 
-raceCar1 = Car(None,None,None)
-raceCar1.setBody()
-raceCar1.setEngine()
 raceCar1.setWheels()
+raceCar1.setEngine()
+raceCar1.setBody()
+print(raceCar1.wheels.size)
+print(raceCar1.engine.horsepower)
+print(raceCar1.body.bodyMass)

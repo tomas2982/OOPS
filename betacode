@@ -1,19 +1,33 @@
-import pygame
+import pygame, time
 pygame.init()
 
-win = pygame.display.set_mode((500,500))
-screenWidth = 500
+win = pygame.display.set_mode((852,480))
+screenWidth = 852
 
 pygame.display.set_caption("Drag Racing Game")
+carimage = pygame.image.load('car4.png')
+bg = pygame.image.load('bg.png')
 
 x = 50
-y = 450
-width = 60
-height = 40
-vel = 20
+y = 400
+width = 64
+height = 54
+vel = 50
 
 isJump = False
 jumpCount = 10
+left = False
+right = False
+walkCount = 0
+
+def gamewindow():
+    global walkCount
+
+    win.blit(bg, (0,0))
+    if walkCount + 1 >= 27:
+        walkCount = 0
+    win.blit(carimage, (x, y))
+    pygame.display.update()
 
 run = True
 while run:
@@ -24,30 +38,13 @@ while run:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT] and x > vel:
-        x -= vel
-    if keys[pygame.K_RIGHT] and x < 500 - width - vel:
+    if keys[pygame.K_SPACE] and x < 852 - width - vel:
         x += vel
-    if not(isJump):
-        if keys[pygame.K_UP] and y > vel:
-            y -= vel
-        if keys[pygame.K_DOWN] and y < 500 - height - vel:
-            y += vel
-        if keys[pygame.K_SPACE]:
-            isJump = True
-    else:
-        if jumpCount >= -10:
-            neg = 1
-            if jumpCount < 0:
-                neg = -1
-            y -= (jumpCount ** 2) * 0.5 * neg
-            jumpCount -= 1
-        else:
-            isJump = False
-            jumpCount = 10
 
     win.fill((0,0,0))
     pygame.draw.rect(win, (255, 0, 0), (x, y, width, height))
     pygame.display.update()
+
+    gamewindow()
 
 pygame.quit()

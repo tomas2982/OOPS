@@ -54,11 +54,11 @@ class Car:
         choice = input("Choose Wheels")
 
         if choice==1:
-            self.wheels = wheels1
+            setattr(self,'wheels',wheels1)
         if choice==2:
-            self.wheels = wheels2
+            setattr(self, 'wheels', wheels2)
         if choice==3:
-            self.wheels = wheels3
+            setattr(self, 'wheels', wheels3)
         N = random.randint(0, 100)
         #print(self.__wheels.size)                              # https://docs.python.org/2/library/random.html
         if self.wheels.popRate <= N:  # Wheels blow out
@@ -101,7 +101,7 @@ class Car:
         return x
 
     def carForce(self):
-        F = self._wheels.torque/(self._wheels.size/2)
+        F = self.wheels.torque/(self.wheels.size/2)
         return F
 
     def getAccel(self):
@@ -113,7 +113,7 @@ class Car:
         a = f / m
         return a
 
-
+    """
     def getCurrentSpeed(self):
         F = self.carForce()             # self.__wheels.torque / (self.__wheels.size / 2)
         m = self.body.bodyMass + self.engine.engineMass
@@ -122,20 +122,30 @@ class Car:
         vf = a*mainClock + v0
         if vf >= self.engine.topSpeed:
             vf = self.engine.topSpeed
-        return vf
-
+        return vf 
+    """
     def getFinishTime(self):
-        F = self._wheels.torque / (self._wheels.size / 2)
+        F = self.wheels.torque / (self.wheels.size / 2)
         m = self.body.bodyMass + self.engine.engineMass
         a = F / m
         d = 402.336  # distance (1/4 mile in meters)
         t = math.sqrt((2*d)/a)
         return t
-    #acceleration = getAccel()
-    #currentSpeed = getCurrentSpeed()
-    #force = None
-    #totalMass = carMass()
 
+    def printSpecs(self):
+        print("Wheel: ")
+        print("     size: ",self.wheels.size, " inches")
+        print("     pop rate: ", self.wheels.popRate, " %")
+        print("     torque: ", self.wheels.torque, " N/m")
+        print("Engine: ")
+        print("     Horsepower: ", self.engine.horsepower, " hP")
+        print("     Blow rate: ", self.engine.engineBlowRate, " %")
+        print("     Mass: ", self.engine.engineMass, " tons")
+        print("     Engine RPM", self.engine.rotationsPerMinute)
+        print("     Top speed: ", self.engine.topSpeed, " m/s")
+        print("Body: ")
+        print("     Mass: ", self.body.bodyMass, " tons")
+        print("     Drag Coeff.: ", self.body.airDrag)
 
 class sportCar(Car):
     def __init__(self, wheel, eng, bod, spoil):
@@ -355,16 +365,11 @@ class rocketCar(bigCar):
     def __init__(self, wheel, eng, bod):
         super().__init__(wheel, eng, bod)
 
+def buildCar():
+    print("Car choices: Car, SportCar, HyperCar, BigCar: ")
+    carchoice = input("Which car you want: ")
+    if carchoice ==1:
+        car1 = Car()
+    elif carchoice ==2:
+        car1 = sportCar()
 
-#raceCar2 = Car(Wheels(18, 2, 70),Engine(200, 2, .3, 4500, 325),Body(.19, 1.3))
-raceCar1 = Car(Wheels(18, 2, 70),Engine(200, 2, .3, 4500, 325),Body(.19, 1.3))
-#raceCar1._wheels= Wheels(18, 2, 70)
-#raceCar1._engine= Engine(200, 2, .3, 4500, 325)
-#raceCar1._body = Body(.19, 1.3)
-
-raceCar1.setWheels()
-raceCar1.setEngine()
-raceCar1.setBody()
-print(raceCar1.wheels.size)
-print(raceCar1.engine.horsepower)
-print(raceCar1.body.bodyMass)

@@ -1,4 +1,7 @@
-import random, math, sys, os, time
+import pygame, random, math, sys, os, time
+from pygame.locals import *
+pygame.init()
+mainClock = pygame.time.Clock()
 
 class Engine:                   # template for engine object
     def __init__(self, hPwr: int, boom: int, engMass: float, rpm: int, topSpd: float):

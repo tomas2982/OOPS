@@ -23,9 +23,9 @@ if choice == 1:
     print(winner.carName)
 
 elif choice == 2:
-    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3)) #CHANGE VALUES FOR CAR HERE
+    myCar1 = Car("User Car", Wheels(20, 2, 60), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3)) #CHANGE VALUES FOR CAR HERE
     #wheel args. size, popRate, torque |  engine args. horsepower, blowRate, mass, RPM, topspeed | body args. air drag, mass
-    enemyCar1 = bigCar(Wheels(random.randint(19, 22), random.randint(0, 4), random.randint(75, 85))
+    enemyCar1 = bigCar("Bad Car",Wheels(random.randint(19, 22), random.randint(0, 4), random.randint(75, 85))
                     , Engine(random.randint(275, 375), random.randint(0, 4), random.uniform(0.5, 0.8),
                              random.randint(5000, 5500), random.randint(75, 125))
                     , Body(random.uniform(0.2, 0.3), random.uniform(1.5, 2.0)))
@@ -43,9 +43,9 @@ elif choice == 2:
     print(winner.carName)
 
 elif choice == 3:
-    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))#CHANGE VALUES FOR CAR HERE
+    myCar1 = Car("User Car", Wheels(20, 2, 60), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))#CHANGE VALUES FOR CAR HERE
     #wheel args. size, popRate, torque |  engine args. horsepower, blowRate, mass, RPM, topspeed | body args. air drag, mass
-    enemyCar1 = Car(Wheels(random.randint(16, 18), random.randint(0, 3), random.randint(90, 100))
+    enemyCar1 = Car("Bad Car", Wheels(random.randint(16, 18), random.randint(0, 3), random.randint(90, 100))
                     , Engine(random.randint(400, 600), random.randint(0, 5), random.uniform(0.5, 0.8),
                              random.randint(5500, 6750), random.randint(100, 150))
                     , Body(random.uniform(0.2, 0.25), random.uniform(1.5, 1.8)))

@@ -105,7 +105,7 @@ class Car:              # base car class
         F = self.wheels.torque/(self.wheels.size/2)
         return F
 
-    def getAccel(self):
+    def getAccel(self):     #calculates acceleration of car
         # https://www.carbibles.com/transmission-guide/ (to get the average gear ratio and derive torque on wheels)
         # https://www.quora.com/How-do-I-calculate-the-acceleration-of-a-car-when-I-have-rpm-torque-mass-horse-power-and-speed-at-different-gear-ratios
         # (to get the torque and calculate for the acceleration)
@@ -125,7 +125,7 @@ class Car:              # base car class
             vf = self.engine.topSpeed
         return vf 
     """
-    def getFinishTime(self):
+    def getFinishTime(self):        #finds time car takes to finish race
         F = self.wheels.torque / (self.wheels.size / 2)
         m = self.body.bodyMass + self.engine.engineMass
         a = F / m
@@ -133,7 +133,7 @@ class Car:              # base car class
         t = math.sqrt((2*d)/a)
         return t
 
-    def printSpecs(self):
+    def printSpecs(self):       #displays specifications of car for user
         print("Wheel: ")
         print("     size: ",self.wheels.size, " inches")
         print("     pop rate: ", self.wheels.popRate, " %")
@@ -148,7 +148,7 @@ class Car:              # base car class
         print("     Mass: ", self.body.bodyMass, " tons")
         print("     Drag Coeff.: ", self.body.airDrag)
 
-class sportCar(Car):
+class sportCar(Car):        #derived car car from the base model of car
     def __init__(self, name, wheel, eng, bod, spoil):
         super().__init__(name, wheel, eng, bod)
         self.spoiler = spoil
@@ -181,7 +181,7 @@ class sportCar(Car):
         engine1 = Engine(150, 1, .3, 4000, 300)
         engine2 = Engine(200, 2, .3, 4500, 325)
         engine3 = Engine(250, 5, .5, 5000, 365)
-        engine4 = Engine(250, 2, .2, 4500, 370)
+        engine4 = Engine(250, 2, .2, 4500, 370)     #more options available
         engine5 = Engine(300, 3, .3, 5000, 385)
         choice = input("Choose Engine")
         if choice==1:

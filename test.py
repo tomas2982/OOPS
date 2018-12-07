@@ -3,8 +3,8 @@ from main import *
 print("Choose 1 for Easy, 2 For Medium, 3 for Hard, 4 for Multi-Car Race")
 choice = int(input("Mode you want: "))
 if choice == 1:
-    myCar1 = Car("User Car",Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))
-
+    myCar1 = Car("User Car",Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))     #CHANGE VALUES FOR CAR HERE
+    #wheel args. size, popRate, torque |  engine args. horsepower, blowRate, mass, RPM, topspeed | body args. air drag, mass
     enemyCar1 = Car("Bad Car",Wheels(random.randint(18, 20), random.randint(0, 5), random.randint(60, 70))
                     , Engine(random.randint(100, 200), random.randint(0, 5), random.uniform(1.0, 1.8),
                              random.randint(4000, 4200), random.randint(0, 100))
@@ -19,12 +19,12 @@ if choice == 1:
     winnersList = []
     for x in carList:
         winnersList.append(x.getFinishTime())
-    winner = carList[winnersList.index(min(winnersList))]
+    winner = carList[winnersList.index(min(winnersList))]    #finds winner from list of times
     print(winner.carName)
 
 elif choice == 2:
-    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))
-
+    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3)) #CHANGE VALUES FOR CAR HERE
+    #wheel args. size, popRate, torque |  engine args. horsepower, blowRate, mass, RPM, topspeed | body args. air drag, mass
     enemyCar1 = bigCar("Bad Car",Wheels(random.randint(19, 22), random.randint(0, 4), random.randint(65, 75))
                        , Engine(random.randint(175, 250), random.randint(0, 4), random.uniform(1.0, 1.7),
                                 random.randint(4200, 4500), random.randint(0, 100))
@@ -39,12 +39,12 @@ elif choice == 2:
     winnersList = []
     for x in carList:
         winnersList.append(x.getFinishTime())
-    winner = carList[winnersList.index(min(winnersList))]
+    winner = carList[winnersList.index(min(winnersList))]    #finds winner from list of times
     print(winner.carName)
 
 elif choice == 3:
-    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))
-
+    myCar1 = Car("User Car", Wheels(18, 2, 70), Engine(250, 3, .3, 4750, 325), Body(.2, 1.3))#CHANGE VALUES FOR CAR HERE
+    #wheel args. size, popRate, torque |  engine args. horsepower, blowRate, mass, RPM, topspeed | body args. air drag, mass
     enemyCar1 = Car("Bad Car",Wheels(random.randint(20, 23), random.randint(0, 3), random.randint(70, 80))
                     , Engine(random.randint(100, 200), random.randint(0, 5), random.uniform(1.0, 1.8),
                              random.randint(4500, 4750), random.randint(0, 100))
@@ -56,10 +56,10 @@ elif choice == 3:
     enemyCar1.printSpecs()
     print("max accel: ", enemyCar1.getAccel(), " m/s^2 Finish time: ", enemyCar1.getFinishTime(), "seconds")
     carList = [myCar1,enemyCar1]
-    winnersList = []
+    winnersList = []        #list for finish times
     for x in carList:
         winnersList.append(x.getFinishTime())
-    winner = carList[winnersList.index(min(winnersList))]
+    winner = carList[winnersList.index(min(winnersList))]    #finds winner from list of times
     print(winner.carName)
 
 elif choice == 4:
@@ -88,7 +88,7 @@ elif choice == 4:
     winnersList = []
     for x in carList:
         winnersList.append(x.getFinishTime())
-    winner = carList[winnersList.index(min(winnersList))]
+    winner = carList[winnersList.index(min(winnersList))]    #finds winner from list of times
     print(winner.carName)
 
 print("end of game")
